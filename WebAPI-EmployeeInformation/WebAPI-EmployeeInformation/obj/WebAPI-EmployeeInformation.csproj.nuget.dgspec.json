@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\uRoy\\source\\repos\\EmployeeBenefitCalculator1\\EmployeeBenefitCoverage\\EmployeeBenefitCoverage\\WebAPI-EmployeeInformation.csproj": {}
+    "C:\\Users\\uRoy\\source\\repos\\EmployeeBenefitCalculator\\WebAPI-EmployeeInformation\\WebAPI-EmployeeInformation\\WebAPI-EmployeeInformation.csproj": {}
   },
   "projects": {
-    "C:\\Users\\uRoy\\source\\repos\\EmployeeBenefitCalculator1\\EmployeeBenefitCoverage\\EmployeeBenefitCoverage\\WebAPI-EmployeeInformation.csproj": {
+    "C:\\Users\\uRoy\\source\\repos\\EmployeeBenefitCalculator\\WebAPI-EmployeeInformation\\WebAPI-EmployeeInformation\\WebAPI-EmployeeInformation.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\uRoy\\source\\repos\\EmployeeBenefitCalculator1\\EmployeeBenefitCoverage\\EmployeeBenefitCoverage\\WebAPI-EmployeeInformation.csproj",
+        "projectUniqueName": "C:\\Users\\uRoy\\source\\repos\\EmployeeBenefitCalculator\\WebAPI-EmployeeInformation\\WebAPI-EmployeeInformation\\WebAPI-EmployeeInformation.csproj",
         "projectName": "WebAPI-EmployeeInformation",
-        "projectPath": "C:\\Users\\uRoy\\source\\repos\\EmployeeBenefitCalculator1\\EmployeeBenefitCoverage\\EmployeeBenefitCoverage\\WebAPI-EmployeeInformation.csproj",
+        "projectPath": "C:\\Users\\uRoy\\source\\repos\\EmployeeBenefitCalculator\\WebAPI-EmployeeInformation\\WebAPI-EmployeeInformation\\WebAPI-EmployeeInformation.csproj",
         "packagesPath": "C:\\Users\\uRoy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\uRoy\\source\\repos\\EmployeeBenefitCalculator1\\EmployeeBenefitCoverage\\EmployeeBenefitCoverage\\obj\\",
+        "outputPath": "C:\\Users\\uRoy\\source\\repos\\EmployeeBenefitCalculator\\WebAPI-EmployeeInformation\\WebAPI-EmployeeInformation\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

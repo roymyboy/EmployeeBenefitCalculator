@@ -19,8 +19,6 @@ namespace EmployeeBenefitCoverage.DataAdapter.DTO
         public string Phone { get; set; }
         public string Email { get; set; }
         public decimal AnnualSalary { get; set; }
-
-        [JsonIgnore]
         public int NumberOfDependents { get; set; }
 
         public EmployeeDTO() { }
