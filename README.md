@@ -1,10 +1,10 @@
 # EmployeeBenefitCalculator
 
-##Technology:
-WebAPI(.NET Core)
+# Technology:
+WebAPI(.NET Core 3.1)
 Database (MSSQL)
 
-##Purpose:
+# Purpose:
 This program is an API which interacts with database to get necessary information to calculate Employee's 
 and thier benefit cost. An employee can have one or many dependents. The program is based on following assumptions
 
@@ -15,7 +15,7 @@ and thier benefit cost. An employee can have one or many dependents. The program
 --There are 26 paychecks in a year
 
 
-How to Run the program:
+# How to Run the program:
 
 1. To run this program clone the repo.
 2. Build the solution on in visual studion. 
