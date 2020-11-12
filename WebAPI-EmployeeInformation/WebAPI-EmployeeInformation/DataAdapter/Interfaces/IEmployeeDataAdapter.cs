@@ -10,10 +10,10 @@ namespace EmployeeBenefitCoverage.DataAdapter.Interfaces
 {
     public interface IEmployeeDataAdapter
     {
-        /// <summary>
-        /// Get all employees
-        /// </summary>
-        /// <returns></returns>
+        //// <summary>
+        //// Get all employees
+        //// </summary>
+        //// <returns></returns>
         List<EmployeeInformation> Get();
 
         ///// <summary>
@@ -27,5 +27,11 @@ namespace EmployeeBenefitCoverage.DataAdapter.Interfaces
         ///// </summary>
         ///// <returns></returns>
         string Post(EmployeeInformation newRecord);
+
+        //// <summary>
+        //// delete an employees
+        //// </summary>
+        //// <returns></returns>
+        string Delete(string uniqueID);
     }
 }

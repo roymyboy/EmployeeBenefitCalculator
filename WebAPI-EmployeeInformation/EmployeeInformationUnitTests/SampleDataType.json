@@ -1,6 +1,5 @@
 {
   "Employee": {
-    "EmployeeID": "2AC72CB1-2BE1-4E79-BBCB-5763ECB810CB",
     "FirstName": "Hilly",
     "LastName": "Le",
     "Phone": "446-336-9682",
@@ -11,8 +10,6 @@
   },
   "Dependents": [
     {
-      "DependentID": "AA44E831-89C9-405C-9FEE-54161A290C62",
-      "EmployeeID": "2AC72CB1-2BE1-4E79-BBCB-5763ECB810CB",
       "FirstName": "Aira",
       "LastName": "Le",
       "Relationship": "Spouse",
@@ -20,8 +17,6 @@
       "CostOfBenefitAnnual": 500
     },
     {
-      "DependentID": "CEE21901-D048-47C8-B044-34F16F3639E5",
-      "EmployeeID": "2AC72CB1-2BE1-4E79-BBCB-5763ECB810CB",
       "FirstName": "Aeon",
       "LastName": "Le",
       "Relationship": "Daughter",
@@ -29,8 +24,6 @@
       "CostOfBenefitAnnual": 500
     },
     {
-      "DependentID": "01D52E85-0FE0-4045-8EE2-77E47F30C260",
-      "EmployeeID": "2AC72CB1-2BE1-4E79-BBCB-5763ECB810CB",
       "FirstName": "Pimon",
       "LastName": "Le",
       "Relationship": "Daughter",
@@ -38,8 +31,6 @@
       "CostOfBenefitAnnual": 500
     },
     {
-      "DependentID": "9E526A21-4CE4-4386-8C73-10961E0B5CBC",
-      "EmployeeID": "2AC72CB1-2BE1-4E79-BBCB-5763ECB810CB",
       "FirstName": "Simon",
       "LastName": "Le",
       "Relationship": "Daughter",
@@ -47,8 +38,6 @@
       "CostOfBenefitAnnual": 500
     },
     {
-      "DependentID": "09397644-1A99-4EB4-B945-7B35622248E2",
-      "EmployeeID": "2AC72CB1-2BE1-4E79-BBCB-5763ECB810CB",
       "FirstName": "Pau",
       "LastName": "Cou",
       "Relationship": "Son",
@@ -56,8 +45,6 @@
       "CostOfBenefitAnnual": 500
     },
     {
-      "DependentID": "3A887D4F-C0AC-42AC-A821-2AF0E5C89AB1",
-      "EmployeeID": "2AC72CB1-2BE1-4E79-BBCB-5763ECB810CB",
       "FirstName": "Bon",
       "LastName": "Le",
       "Relationship": "Son",
@@ -65,15 +52,11 @@
       "CostOfBenefitAnnual": 500
     },
     {
-      "DependentID": "87765CA9-4924-4CAC-AA5C-B289F286D758",
-      "EmployeeID": "2AC72CB1-2BE1-4E79-BBCB-5763ECB810CB",
       "FirstName": "Jon",
       "LastName": "Le",
       "Relationship": "Son"
     },
     {
-      "DependentID": "E77253C6-E3A6-40E2-960C-2259DC9C3DB9",
-      "EmployeeID": "2AC72CB1-2BE1-4E79-BBCB-5763ECB810CB",
       "FirstName": "Aau",
       "LastName": "Le",
       "Relationship": "Mother",
@@ -81,8 +64,6 @@
       "CostOfBenefitAnnual": 500
     },
     {
-      "DependentID": "72E3A1D2-AE8F-4532-B57D-C1A1E14F3AB8",
-      "EmployeeID": "2AC72CB1-2BE1-4E79-BBCB-5763ECB810CB",
       "FirstName": "Eman",
       "LastName": "Le",
       "Relationship": "Father",

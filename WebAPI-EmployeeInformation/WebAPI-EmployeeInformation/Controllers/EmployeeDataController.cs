@@ -54,7 +54,7 @@ namespace EmployeeBenefitCoverage.Controllers
             }
 
             string result = JsonConvert.SerializeObject(employeeRecord);
-            
+
             return Ok(result);
         }
 
@@ -66,7 +66,7 @@ namespace EmployeeBenefitCoverage.Controllers
         [Route("AllRecords")]
         public ActionResult Get()
         {
-            List<EmployeeInformation> employeeRecords =  _employeAdapter.Get();
+            List<EmployeeInformation> employeeRecords = _employeAdapter.Get();
 
             if (employeeRecords.Count == 0)
             {
@@ -74,8 +74,21 @@ namespace EmployeeBenefitCoverage.Controllers
             }
 
             string result = JsonConvert.SerializeObject(employeeRecords);
-            
+
             return Ok(result);
+        }
+
+        /// <summary>
+        /// Controller to delete employee and its dependents from Database give employeeID
+        /// </summary>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("DeleteRecord")]
+        public ActionResult Delete(string employeeID)
+        {
+            var returnRes = _employeAdapter.Delete(employeeID);
+
+            return Ok(returnRes);
         }
     }
 }

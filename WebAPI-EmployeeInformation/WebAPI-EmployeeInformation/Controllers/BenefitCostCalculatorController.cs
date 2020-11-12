@@ -3,6 +3,7 @@ using EmployeeBenefitCoverage.EmployeeBenefitCostCalculator.Interfaces;
 using EmployeeBenefitCoverage.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Web.Http.Cors;
 
 namespace EmployeeBenefitCoverage.Controllers
 {
@@ -33,6 +34,26 @@ namespace EmployeeBenefitCoverage.Controllers
             if (string.IsNullOrEmpty(employeeRecord.Employee.EmployeeID))
             {
                 return BadRequest(string.Format($"Given EmployeeID: {employeeID} doesnot exist. Please provide the right employeeID"));
+            }
+
+            EmployeeSalaryInformation _salary = _benefitCostCalculator.CalculateEmployeeSalary(employeeRecord);
+
+            string result = JsonConvert.SerializeObject(_salary);
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("AddAndgetSalaryInformation")]
+        public ActionResult GetEmployeeSalaryInfo([FromBody] object requestBody)
+        {
+            EmployeeInformation employeeRecord = Utilities.Utility.ParseJSONArray<EmployeeInformation>(requestBody.ToString());
+
+            var res = _employeAdapter.Post(employeeRecord);
+
+            if (!res.Contains("successfully inserted data"))
+            {
+                return BadRequest(string.Format($"Failed to insert new employee"));
             }
 
             EmployeeSalaryInformation _salary = _benefitCostCalculator.CalculateEmployeeSalary(employeeRecord);

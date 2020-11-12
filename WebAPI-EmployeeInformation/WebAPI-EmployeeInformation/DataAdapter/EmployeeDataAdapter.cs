@@ -47,6 +47,9 @@ namespace EmployeeBenefitCoverage.DataAdapter
         /// <returns></returns>
         public EmployeeInformation GetByUniqueID(string uniqueID)
         {
+            if (string.IsNullOrEmpty(uniqueID))
+                return new EmployeeInformation();
+
             string sql = "EmployeeInformation..SelEmployeeDataByID";
             SqlParameter[] param = new SqlParameter[1];
 
@@ -75,9 +78,12 @@ namespace EmployeeBenefitCoverage.DataAdapter
         public string Post(EmployeeInformation employee)
         {
             string sql = "EmployeeInformation..InsEmployeeData";
+            string EmployeeId = Guid.NewGuid().ToString();
+
+            employee.Employee.EmployeeID = EmployeeId;
 
             DataTable employeeDt = CreateEmployeeDataTable(employee);
-            DataTable dependentDt = CreateDependentDataTable(employee.Dependents);
+            DataTable dependentDt = CreateDependentDataTable(employee.Dependents, EmployeeId);
 
             SqlParameter[] param = new SqlParameter[2];
             param[0] = new SqlParameter()
@@ -98,12 +104,32 @@ namespace EmployeeBenefitCoverage.DataAdapter
 
             _ = _DB.Execute(sql, CommandType.StoredProcedure, 600, param);
 
-            return "successfully inserted data";
+            return $"successfully inserted data with EmployeeID {EmployeeId}";
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inEmployeeInfo"></param>
+        /// <returns></returns>
+        public string Delete(string employeeId)
+        {
+            if (string.IsNullOrEmpty(employeeId))
+                return "Bad Request, Please provide a valid EmployeeID";
 
-        #region helper method
-        private DataTable CreateEmployeeDataTable(EmployeeInformation inEmployeeInfo)
+            string sql = "EmployeeInformation..DelEmployeeByEmployeeID";
+
+            SqlParameter[] param = new SqlParameter[1];
+
+            param[0] = new SqlParameter("@UniqueId", employeeId);
+
+            _ = _DB.Execute(sql, CommandType.StoredProcedure, 600, param);
+
+            return $"Successfully deleted record of EmployeeID {employeeId}";
+        }
+
+            #region helper method
+            private DataTable CreateEmployeeDataTable(EmployeeInformation inEmployeeInfo)
         {
             DataTable table = new DataTable()
             { 
@@ -155,7 +181,7 @@ namespace EmployeeBenefitCoverage.DataAdapter
             return table;
         }
 
-        private DataTable CreateDependentDataTable(List<DependentDTO> dependentInfo)
+        private DataTable CreateDependentDataTable(List<DependentDTO> dependentInfo, string employeeId)
         {
             DataTable table = new DataTable()
             {
@@ -173,10 +199,12 @@ namespace EmployeeBenefitCoverage.DataAdapter
 
             foreach (DependentDTO record in dependentInfo)
             {
+                string DependentID = Guid.NewGuid().ToString();
+
                 DataRow dr = table.NewRow();
 
-                dr["DependentID"] = record.DependentID;
-                dr["EmployeeID"] = record.EmployeeID;
+                dr["DependentID"] = DependentID;
+                dr["EmployeeID"] = employeeId;
                 dr["FirstName"] = record.FirstName;
                 dr["LastName"] = record.LastName;
                 dr["Relationship"] = record.Relationship;

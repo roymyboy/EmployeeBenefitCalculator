@@ -23,7 +23,6 @@ namespace EmployeeBenefitCoverage
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddCors();
             services.AddSwaggerGen();
 
             services.AddTransient(_ => new DatabaseConnection(Configuration["ConnectionString"]));
@@ -58,10 +57,9 @@ namespace EmployeeBenefitCoverage
             });
 
             app.UseCors(builder => builder
-            .WithOrigins("*", "*")
-            .AllowAnyMethod()
-            .AllowCredentials()
-            .WithHeaders("Accept", "Content-Type", "Origin", "X-My-Header"));
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod());
         }
     }
 }
