@@ -1,15 +1,12 @@
-﻿using Microsoft.JSInterop;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
-using System.Linq;
-using System.Security.Permissions;
-using System.Threading.Tasks;
 
 namespace EmployeeBenefitCoverage.DataAdapter.DTO
 {
+    /// <summary>
+    /// represents Employee raw information
+    /// </summary>
     public class EmployeeDTO
     {
         [Key]
@@ -18,7 +15,9 @@ namespace EmployeeBenefitCoverage.DataAdapter.DTO
         public string LastName { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-        public decimal AnnualSalary { get; set; }
+        public decimal? AnnualSalary { get; set; }
+        public decimal? CostOfBenefitAnnual { get; set; }
+        public decimal? PercentageOfDiscount { get; set; }
         public int NumberOfDependents { get; set; }
 
         public EmployeeDTO() { }
@@ -34,8 +33,10 @@ namespace EmployeeBenefitCoverage.DataAdapter.DTO
             LastName = !string.IsNullOrEmpty(dr["LastName"].ToString()) ? Convert.ToString(dr["LastName"]) : "";
             Phone = !string.IsNullOrEmpty(dr["Phone"].ToString()) ? Convert.ToString(dr["Phone"]) : "";
             Email = !string.IsNullOrEmpty(dr["Email"].ToString()) ? Convert.ToString(dr["Email"]) : "";
-            AnnualSalary = Convert.ToDecimal(dr["AnnualSalary"]);
+            AnnualSalary = !string.IsNullOrEmpty(dr["AnnualSalary"].ToString()) ? Convert.ToDecimal(dr["AnnualSalary"]) : 0;
             NumberOfDependents = !string.IsNullOrEmpty(dr["NumberOfDependents"].ToString()) ? Convert.ToInt32(dr["NumberOfDependents"]) : 0;
+            PercentageOfDiscount = !string.IsNullOrEmpty(dr["PercentageOfDiscount"].ToString()) ? Convert.ToDecimal(dr["PercentageOfDiscount"]) : 0;
+            CostOfBenefitAnnual = !string.IsNullOrEmpty(dr["CostOfBenefitAnnual"].ToString()) ? Convert.ToDecimal(dr["CostOfBenefitAnnual"]) : 0 ;
         }
     }
 }

@@ -1,0 +1,44 @@
+{
+  "dependentsBenifitCostInfo": [
+    {
+      "FullName": "Simon Le",
+      "CostOfBenefit": 19.23
+    },
+    {
+      "FullName": "Aau Le",
+      "CostOfBenefit": 17.31
+    },
+    {
+      "FullName": "Bon Le",
+      "CostOfBenefit": 19.23
+    },
+    {
+      "FullName": "Aeon Le",
+      "CostOfBenefit": 17.31
+    },
+    {
+      "FullName": "Aira Le",
+      "CostOfBenefit": 17.31
+    },
+    {
+      "FullName": "Pimon Le",
+      "CostOfBenefit": 19.23
+    },
+    {
+      "FullName": "Pau Cou",
+      "CostOfBenefit": 19.23
+    },
+    {
+      "FullName": "Jon Le",
+      "CostOfBenefit": 19.23
+    },
+    {
+      "FullName": "Eman Le",
+      "CostOfBenefit": 19.23
+    }
+  ],
+  "EmployeeFullName": "Hilly Le",
+  "EmployeeCostOfBeneFit": 38.46,
+  "SalaryAfterBenefitDeduction": 1794.23,
+  "SalaryBeforeBenefitDeduction": 2000.0
+}

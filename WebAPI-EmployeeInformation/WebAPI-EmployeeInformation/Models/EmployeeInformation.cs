@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace EmployeeBenefitCoverage.Models
 {
+    /// <summary>
+    /// represents raw information about of an employee and its dependents
+    /// </summary>
     public class EmployeeInformation
     {
         public EmployeeDTO Employee;

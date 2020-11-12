@@ -5,8 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using EmployeeBenefitCoverage.DataAdapter;
 using EmployeeBenefitCoverage.DataAdapter.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
+using EmployeeBenefitCoverage.EmployeeBenefitCostCalculator.Interfaces;
+using EmployeeBenefitCoverage.EmployeeBenefitCostCalculator;
 
 namespace EmployeeBenefitCoverage
 {
@@ -23,11 +23,12 @@ namespace EmployeeBenefitCoverage
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
+            services.AddCors();
             services.AddSwaggerGen();
-            services.AddMemoryCache();
+
             services.AddTransient(_ => new DatabaseConnection(Configuration["ConnectionString"]));
             services.AddScoped<IEmployeeDataAdapter, EmployeeDataAdapter>();
+            services.AddScoped<IBenefitCostCalculator, BenefitCostCalculator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +56,12 @@ namespace EmployeeBenefitCoverage
             {
                 endpoints.MapControllers();
             });
+
+            app.UseCors(builder => builder
+            .WithOrigins("*", "*")
+            .AllowAnyMethod()
+            .AllowCredentials()
+            .WithHeaders("Accept", "Content-Type", "Origin", "X-My-Header"));
         }
     }
 }

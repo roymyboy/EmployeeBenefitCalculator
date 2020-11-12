@@ -1,17 +1,17 @@
 ﻿using EmployeeBenefitCoverage.DataAdapter.DTO;
 using EmployeeBenefitCoverage.Models;
-using Microsoft.AspNetCore.SignalR;
-using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace EmployeeBenefitCoverage.Collections
+namespace EmployeeBenefitCoverage.BuildEmployeeAndDependentRelation
 {
-    public class EmployeeCollection
+    public class BuildEmployeeInformation
     {
+        /// <summary>
+        /// build employee information give the employee and its dependents
+        /// </summary>
+        /// <param name="inEmployeeInfo"></param>
+        /// <returns></returns>
         public static List<EmployeeInformation> GetListOfEmployee(DataSet inEmployeeInfo)
         {
             List<EmployeeInformation> lstOfEmployee = new List<EmployeeInformation>();

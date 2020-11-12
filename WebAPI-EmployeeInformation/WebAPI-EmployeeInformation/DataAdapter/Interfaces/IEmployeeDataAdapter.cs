@@ -14,18 +14,18 @@ namespace EmployeeBenefitCoverage.DataAdapter.Interfaces
         /// Get all employees
         /// </summary>
         /// <returns></returns>
-        List<EmployeeInformation> Get(string inSQL);
+        List<EmployeeInformation> Get();
 
         ///// <summary>
         ///// Get employee by id
         ///// </summary>
         ///// <returns></returns>
-        EmployeeInformation GetByUniqueID(string inSQL, string uniqueID);
+        EmployeeInformation GetByUniqueID(string uniqueID);
 
         ///// <summary>
         ///// Add new entity
         ///// </summary>
         ///// <returns></returns>
-        string Post(string inSQL, EmployeeInformation newRecord);
+        string Post(EmployeeInformation newRecord);
     }
 }

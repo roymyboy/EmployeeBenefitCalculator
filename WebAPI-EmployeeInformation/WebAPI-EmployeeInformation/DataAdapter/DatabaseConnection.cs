@@ -7,6 +7,7 @@ namespace EmployeeBenefitCoverage.DataAdapter
     public class DatabaseConnection : IDisposable
     {
         public SqlConnection _connection { get; }
+
         /// <summary>
         /// Initialize instance for <see cref="DatabaseConnection"/>
         /// </summary>
@@ -16,6 +17,14 @@ namespace EmployeeBenefitCoverage.DataAdapter
             _connection = new SqlConnection(inConnectionString);
         }
 
+        /// <summary>
+        /// generic execute method to interact with database
+        /// </summary>
+        /// <param name="inSql"></param>
+        /// <param name="type"></param>
+        /// <param name="Timeout"></param>
+        /// <param name="sqlParams"></param>
+        /// <returns></returns>
         public DataSet Execute(string inSql,CommandType type = CommandType.StoredProcedure, int Timeout = 600, params SqlParameter[] sqlParams)
         {
             int retryCount = 0;
@@ -26,6 +35,8 @@ namespace EmployeeBenefitCoverage.DataAdapter
                 if (conn != null && conn.State == ConnectionState.Closed)
                 {
                     bool isConnOpen;
+
+                    //retry 3 times to connect to database 
                     do
                     {
                         conn.Open();
@@ -60,13 +71,18 @@ namespace EmployeeBenefitCoverage.DataAdapter
                 throw;
             }
             catch (Exception)
-            { 
+            {
                 throw;
             }
+
+            Dispose();
 
             return resultSet;
         }
 
+        /// <summary>
+        /// dispose connection
+        /// </summary>
         public void Dispose() => _connection.Dispose();
     }
 }

@@ -1,17 +1,11 @@
-﻿using AutoMapper;
-using EmployeeBenefitCoverage.Collections;
+﻿using EmployeeBenefitCoverage.BuildEmployeeAndDependentRelation;
 using EmployeeBenefitCoverage.DataAdapter.DTO;
-using EmployeeBenefitCoverage.DataAdapter.Interfaces;
 using EmployeeBenefitCoverage.Models;
 using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Reflection.Metadata;
-using System.Threading.Tasks;
 
 namespace EmployeeBenefitCoverage.DataAdapter
 {
@@ -30,23 +24,41 @@ namespace EmployeeBenefitCoverage.DataAdapter
             _DB = inConnection ?? throw new ArgumentNullException(nameof(inConnection));
         }
 
-        public List<EmployeeInformation> Get(string sql)
+        /// <summary>
+        /// Get all the employee and its dependent information available in Database
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public List<EmployeeInformation> Get()
         {
+            string sql = "EmployeeInformation..SelEmployeeData";
             DataSet ds = _DB.Execute(sql);
 
-            List<EmployeeInformation> listOfEmployee = EmployeeCollection.GetListOfEmployee(ds);
+            List<EmployeeInformation> listOfEmployee = BuildEmployeeInformation.GetListOfEmployee(ds);
 
             return listOfEmployee;
         }
 
-        public EmployeeInformation GetByUniqueID(string sql, string uniqueID)
+        /// <summary>
+        /// get an employee and its deppendent information give employee's unique ID
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="uniqueID"></param>
+        /// <returns></returns>
+        public EmployeeInformation GetByUniqueID(string uniqueID)
         {
+            string sql = "EmployeeInformation..SelEmployeeDataByID";
             SqlParameter[] param = new SqlParameter[1];
+
             param[0] = new SqlParameter("@UniqueId", uniqueID);
 
             DataSet ds = _DB.Execute(sql, CommandType.StoredProcedure, 600, param);
 
-            List<EmployeeInformation> listOfEmployee = EmployeeCollection.GetListOfEmployee(ds);
+            List<EmployeeInformation> listOfEmployee = new List<EmployeeInformation>();
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                listOfEmployee = BuildEmployeeInformation.GetListOfEmployee(ds);
+            }
 
             if (listOfEmployee.Count > 0)
                 return listOfEmployee.First();
@@ -54,8 +66,16 @@ namespace EmployeeBenefitCoverage.DataAdapter
             return new EmployeeInformation();
         }
 
-        public string Post(string sql, EmployeeInformation employee)
+        /// <summary>
+        /// create employees information in database
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="employee"></param>
+        /// <returns></returns>
+        public string Post(EmployeeInformation employee)
         {
+            string sql = "EmployeeInformation..InsEmployeeData";
+
             DataTable employeeDt = CreateEmployeeDataTable(employee);
             DataTable dependentDt = CreateDependentDataTable(employee.Dependents);
 
@@ -95,6 +115,8 @@ namespace EmployeeBenefitCoverage.DataAdapter
                      new DataColumn("Phone", typeof(string)),
                      new DataColumn("Email", typeof(string)),
                      new DataColumn("AnnualSalary", typeof(decimal)),
+                     new DataColumn("CostOfBenefitAnnual", typeof(decimal)),
+                     new DataColumn("PercentageOfDiscount", typeof(decimal)),
                      new DataColumn("NumberOfDependents", typeof(int))
                 }
             };
@@ -106,8 +128,28 @@ namespace EmployeeBenefitCoverage.DataAdapter
             dr["LastName"] = inEmployeeInfo.Employee.LastName;
             dr["Phone"] = inEmployeeInfo.Employee.Phone;
             dr["Email"] = inEmployeeInfo.Employee.Email;
-            dr["AnnualSalary"] = inEmployeeInfo.Employee.AnnualSalary;
+            dr["AnnualSalary"] = (inEmployeeInfo.Employee.AnnualSalary is 0) ? 52000 : inEmployeeInfo.Employee.AnnualSalary;
             dr["NumberOfDependents"] = inEmployeeInfo.Dependents.Count;
+
+
+            if (inEmployeeInfo.Employee.CostOfBenefitAnnual == null || inEmployeeInfo.Employee.CostOfBenefitAnnual  == 0)
+            {
+                dr["CostOfBenefitAnnual"] = 1000;
+            }
+            else
+            {
+                dr["CostOfBenefitAnnual"] = inEmployeeInfo.Employee.CostOfBenefitAnnual;
+            }
+
+            if (inEmployeeInfo.Employee.PercentageOfDiscount == null || inEmployeeInfo.Employee.PercentageOfDiscount  == 0)
+            {
+                dr["PercentageOfDiscount"] = 10;
+            }
+            else
+            {
+                dr["PercentageOfDiscount"] = inEmployeeInfo.Employee.PercentageOfDiscount;
+            }
+
             table.Rows.Add(dr);
 
             return table;
@@ -123,7 +165,9 @@ namespace EmployeeBenefitCoverage.DataAdapter
                     new DataColumn("EmployeeID", typeof(string)),
                     new DataColumn("FirstName", typeof(string)),
                     new DataColumn("LastName", typeof(string)),
-                    new DataColumn("Relationship", typeof(string))
+                    new DataColumn("Relationship", typeof(string)),
+                    new DataColumn("PercentageOfDiscount", typeof(decimal)),
+                    new DataColumn("CostOfBenefitAnnual", typeof(decimal))
                 }
             };
 
@@ -137,6 +181,24 @@ namespace EmployeeBenefitCoverage.DataAdapter
                 dr["LastName"] = record.LastName;
                 dr["Relationship"] = record.Relationship;
 
+                if (record.PercentageOfDiscount == null || record.PercentageOfDiscount == 0)
+                {
+                    dr["PercentageOfDiscount"] = 10;
+                }
+                else
+                {
+                    dr["PercentageOfDiscount"] = record.PercentageOfDiscount;
+                }
+
+                if (record.CostOfBenefitAnnual == null || record.CostOfBenefitAnnual == 0)
+                {
+                    dr["CostOfBenefitAnnual"] = 500;
+                }
+                else
+                {
+                    dr["CostOfBenefitAnnual"] = record.CostOfBenefitAnnual;
+                }
+             
                 table.Rows.Add(dr);
             }
 

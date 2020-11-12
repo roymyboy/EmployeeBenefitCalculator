@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using EmployeeBenefitCoverage.Collections;
-using EmployeeBenefitCoverage.DataAdapter.DTO;
+﻿using System.Collections.Generic;
 using EmployeeBenefitCoverage.DataAdapter.Interfaces;
 using EmployeeBenefitCoverage.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 
 namespace EmployeeBenefitCoverage.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("[Controller]")]
     public class EmployeeDataController : ControllerBase
     {
         private IEmployeeDataAdapter _employeAdapter;
@@ -24,6 +18,11 @@ namespace EmployeeBenefitCoverage.Controllers
             _employeAdapter = employeeAdapter;
         }
 
+        /// <summary>
+        /// Controller to add employee record in the database
+        /// </summary>
+        /// <param name="requestBody"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("AddRecord")]
         [RequestSizeLimit(100_000_000)]
@@ -31,30 +30,51 @@ namespace EmployeeBenefitCoverage.Controllers
         {
             EmployeeInformation employeeRecord = Utilities.Utility.ParseJSONArray<EmployeeInformation>(requestBody.ToString());
 
-            var res = _employeAdapter.Post("EmployeeInformation..InsEmployeeData", employeeRecord);
-            
-            return Ok(res);
-        }
+            var res = _employeAdapter.Post(employeeRecord);
 
-        [HttpGet]
-        [Route("SingleRecord")]
-        public ActionResult Get(string employeeID)
-        {
-            var employeeRecords = _employeAdapter.GetByUniqueID("EmployeeInformation..SelEmployeeDataByID", employeeID);
-
-            string result = JsonConvert.SerializeObject(employeeRecords);
+            string result = JsonConvert.SerializeObject(res);
 
             return Ok(result);
         }
 
+        /// <summary>
+        /// Controller to extract available  employee information by give employee ID
+        /// </summary>
+        /// <param name="employeeID"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("SingleRecord")]
+        public ActionResult Get(string employeeID)
+        {
+            EmployeeInformation employeeRecord = _employeAdapter.GetByUniqueID(employeeID);
+
+            if (string.IsNullOrEmpty(employeeRecord.Employee.EmployeeID))
+            {
+                return BadRequest(string.Format($"Given EmployeeID: {employeeID} didnot return any employee data. Please provide a valid employee ID"));
+            }
+
+            string result = JsonConvert.SerializeObject(employeeRecord);
+            
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Controller to extract available employee and its dependents from Database
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("AllRecords")]
         public ActionResult Get()
         {
-            List<EmployeeInformation> employeeRecords =  _employeAdapter.Get("EmployeeInformation..SelEmployeeData");
+            List<EmployeeInformation> employeeRecords =  _employeAdapter.Get();
+
+            if (employeeRecords.Count == 0)
+            {
+                return BadRequest(string.Format($"There is currently no employee record in the database."));
+            }
 
             string result = JsonConvert.SerializeObject(employeeRecords);
-
+            
             return Ok(result);
         }
     }
