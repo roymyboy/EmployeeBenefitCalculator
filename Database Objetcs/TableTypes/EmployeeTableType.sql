@@ -7,7 +7,9 @@ Create Type [dbo].[EmployeeTableType] as Table
 	LastName varchar(255) not null,
 	Phone varchar(255) null,
 	Email varchar(255) null,
-	AnnualSalary decimal null,
+	AnnualSalary decimal not null,
+	CostOfBenefitAnnual decimal not null,
+	PercentageOfDiscount decimal not null,
 	NumberOfDependents int null
 )
 

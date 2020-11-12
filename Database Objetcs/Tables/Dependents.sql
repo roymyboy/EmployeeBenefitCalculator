@@ -4,6 +4,7 @@ Create table Dependents
     EmployeeID uniqueIdentifier,
     FirstName varchar(255) Not Null,
     LastName varchar(255) Not null,
-	Relationship varchar(255) not null
+	Relationship varchar(255) not null,
+	PercentageOfDiscount decimal not null,
+	CostOfBenefitAnnual decimal not null
 )
-

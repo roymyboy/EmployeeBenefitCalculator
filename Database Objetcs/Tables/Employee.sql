@@ -5,6 +5,8 @@ Create table Employee
     LastName varchar(255) Not null,
     Phone varchar(255) null,
     Email varchar(255) null,
-    AnnualSalary decimal null,
+    AnnualSalary decimal not null,
+	CostOfBenefitAnnual decimal not null,
+	PercentageOfDiscount decimal not null,
     NumberOfDependents int null
 )

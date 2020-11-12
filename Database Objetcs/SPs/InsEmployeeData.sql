@@ -36,6 +36,8 @@ BEGIN
 	Phone,
 	Email,
 	AnnualSalary,
+	CostOfBenefitAnnual,
+	PercentageOfDiscount,
 	NumberOfDependents
 	from @EmployeeDataTableType
 
@@ -45,7 +47,9 @@ BEGIN
 		EmployeeID,
 		FirstName,
 		LastName,
-		Relationship
+		Relationship,
+		PercentageOfDiscount,
+		CostOfBenefitAnnual
 	from @DependentsDataTableType
 	
 END

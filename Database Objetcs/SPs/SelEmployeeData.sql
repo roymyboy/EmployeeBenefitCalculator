@@ -32,7 +32,9 @@ BEGIN
 	Phone,
 	Email,
 	AnnualSalary,
-	NumberOfDependents
+	NumberOfDependents,
+	PercentageOfDiscount,
+	CostOfBenefitAnnual
 	from [dbo].[Employee]
 
 	select 
@@ -40,7 +42,9 @@ BEGIN
 		dpndt.EmployeeID,
 		dpndt.FirstName,
 		dpndt.LastName,
-		Relationship
+		Relationship,
+		dpndt.PercentageOfDiscount,
+		dpndt.CostOfBenefitAnnual
 	from [dbo].[Dependents] dpndt
 	inner join [dbo].[Employee] emp on dpndt.EmployeeID = emp.EmployeeID
 END

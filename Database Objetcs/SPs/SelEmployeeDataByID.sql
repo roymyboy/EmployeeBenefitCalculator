@@ -30,26 +30,42 @@ CREATE PROCEDURE SelEmployeeDataByID
 
 AS
 BEGIN
+	Begin try
 	
-	Select 
-	EmployeeID,
-	FirstName,
-	LastName,
-	Phone,
-	Email,
-	AnnualSalary,
-	NumberOfDependents
-	from [dbo].[Employee]
-	where EmployeeID = @UniqueId
-
-	select 
-		DependentID,
+		Select 
 		EmployeeID,
 		FirstName,
 		LastName,
-		Relationship
-	from [dbo].[Dependents]
-	where EmployeeID = @UniqueId
+		Phone,
+		Email,
+		AnnualSalary,
+		NumberOfDependents,
+		PercentageOfDiscount,
+		CostOfBenefitAnnual
+		from [dbo].[Employee]
+		where EmployeeID = @UniqueId
+
+		select 
+			DependentID,
+			EmployeeID,
+			FirstName,
+			LastName,
+			Relationship,
+			PercentageOfDiscount,
+			CostOfBenefitAnnual
+		from [dbo].[Dependents]
+		where EmployeeID = @UniqueId
+	end try
+	begin catch
+	 SELECT 
+         ERROR_NUMBER() AS ErrorNumber
+        ,ERROR_SEVERITY() AS ErrorSeverity
+        ,ERROR_STATE() AS ErrorState
+        ,ERROR_PROCEDURE() AS ErrorProcedure
+        ,ERROR_LINE() AS ErrorLine
+        ,ERROR_MESSAGE() AS ErrorMessage;
+        return;
+	end catch 
 END
 GO
 

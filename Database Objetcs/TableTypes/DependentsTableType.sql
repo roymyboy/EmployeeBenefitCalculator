@@ -6,7 +6,10 @@ Create Type [dbo].[DependentsTableType] as Table
 	EmployeeID uniqueidentifier not null,
 	FirstName varchar(255) not null,
 	LastName varchar(255) not null,
-	Relationship varchar(255) not null
+	Relationship varchar(255) not null,
+	PercentageOfDiscount decimal not null,
+	CostOfBenefitAnnual decimal not null
 )
 
 go
+
